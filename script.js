@@ -6,27 +6,17 @@ const numbers = {
     "C": 100,
     "D": 500,
     "M": 1000
-}
+};
 
-let romanNum = 'X',
-    arabicNum = 0;
-
-let romanNumArr = romanNum.split('');
-
-romanNumArr.forEach((item, index, arr) => {
-    for (let key in numbers) {
-        if (item === key) {
-            arr[arr.indexOf(item)] = numbers[key];
+function romanToArabic(romanNum) {
+    return romanNum.split('').reduce((acc, curr, i, arr) => {
+        const currentVal = numbers[curr];
+        const nextVal = numbers[arr[i + 1]];
+        
+        if (currentVal < nextVal) {
+            return acc - currentVal;
+        } else {
+            return acc + currentVal;
         }
-    }
-})
-
-for (let i = 0; i < romanNumArr.length; i++) {
-    if (romanNumArr[i] < romanNumArr[i + 1]) {
-        arabicNum -= romanNumArr[i]
-    } else {
-        arabicNum += romanNumArr[i]
-    }
+    }, 0);
 }
-
-console.log(arabicNum)
